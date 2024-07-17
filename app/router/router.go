@@ -17,6 +17,7 @@ func Init(init *config.Initialization) *gin.Engine {
 		{
 			accounts.GET("", init.AccountCtrl.AccountSummary)
 			accounts.POST("", init.AccountCtrl.CreateAccount)
+			accounts.GET("/:accountID", init.AccountCtrl.AccountDetails)
 		}
 	}
 

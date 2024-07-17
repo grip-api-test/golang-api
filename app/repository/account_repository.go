@@ -12,6 +12,7 @@ type AccountRepository interface {
 
 type FakeAccountRepositoryImpl struct {
 	accounts []dao.Account
+	id int
 }
 
 func (u *FakeAccountRepositoryImpl) FindAll() []dao.Account {
@@ -19,13 +20,16 @@ func (u *FakeAccountRepositoryImpl) FindAll() []dao.Account {
 }
 
 func (u *FakeAccountRepositoryImpl) Save(account *dao.Account) dao.Account {
+	account.ID = u.id
 	u.accounts = append(u.accounts, *account)
+	u.id++
 	return *account
 }
 
 func AccountRepositoryInit() *FakeAccountRepositoryImpl {
 	return &FakeAccountRepositoryImpl{
 		accounts: []dao.Account{},
+		id: 1,
 	}
 }
 

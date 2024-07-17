@@ -49,3 +49,24 @@ func Test_CreateAndGetAccounts_ReturnsCreatedAcccount(t *testing.T) {
 	assert.Equal(t, http.StatusOK, recorder.Code)
 	assert.Contains(t, response.Data, dao.Account{Name: "Test Account"})
 }
+
+
+func Test_GetAccountById_ReturnsCreatedAcccount(t *testing.T) {
+	var response dto.ApiResponse[dao.Account]
+	init := config.Init()
+	app := router.Init(init)
+
+	recorder := httptest.NewRecorder()
+	request, _ := http.NewRequest("POST", "/api/accounts", bytes.NewBufferString("{\"name\":\"Test Account\"}"))
+	app.ServeHTTP(recorder, request)
+
+	recorder = httptest.NewRecorder()
+	request, _ = http.NewRequest("GET", "/api/accounts/1", nil)
+	app.ServeHTTP(recorder, request)
+	err := json.Unmarshal(recorder.Body.Bytes(), &response)
+
+	assert.Nil(t, err)
+	assert.Equal(t, "SUCCESS", response.ResponseKey)
+	assert.Equal(t, http.StatusOK, recorder.Code)
+	assert.Contains(t, response.Data.Name, "Test Account")
+}

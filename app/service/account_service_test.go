@@ -7,6 +7,13 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+/* func TestMain(m *testing.M) {
+    setup()
+    code := m.Run()
+    shutdown()
+    os.Exit(code)
+} */
+
 func Test_GetAll_FindsAllAccountsInRepository(t *testing.T) {
 	mockAccountRepository := new(MockAccountRepository)
 	sut := AccountServiceInit(mockAccountRepository)
