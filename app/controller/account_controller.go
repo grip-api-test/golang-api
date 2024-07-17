@@ -6,6 +6,7 @@ import (
 	"gin-gonic-api/app/pkg"
 	"gin-gonic-api/app/service"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,6 +14,7 @@ import (
 type AccountController interface {
 	AccountSummary(c *gin.Context)
 	CreateAccount(c *gin.Context)
+	AccountDetails(c *gin.Context)
 }
 
 type AccountControllerImpl struct {
@@ -34,6 +36,12 @@ func (u AccountControllerImpl) CreateAccount(c *gin.Context) {
 	}
 	account := u.svc.CreateAccount(request)
 
+	c.JSON(http.StatusOK, pkg.BuildResponse(constant.Success, account))
+}
+
+func (u AccountControllerImpl) AccountDetails(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("accountID"))
+	account := u.svc.Get(id)
 	c.JSON(http.StatusOK, pkg.BuildResponse(constant.Success, account))
 }
 

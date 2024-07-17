@@ -15,6 +15,11 @@ func (m *MockAccountService) GetAll() []dao.Account {
 	return args.Get(0).([]dao.Account)
 }
 
+func (m *MockAccountService) Get(id int) dao.Account {
+	args := m.Called(id)
+	return args.Get(0).(dao.Account)
+}
+
 func (m *MockAccountService) CreateAccount(newAccount dao.Account) dao.Account {
 	args := m.Called(newAccount)
 	return args.Get(0).(dao.Account)
