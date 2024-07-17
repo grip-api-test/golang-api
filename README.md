@@ -1,4 +1,4 @@
-# Useful Links:
+# Sample GO REST API
 
 ## Setup environment
 
@@ -8,8 +8,8 @@
 ## Building
 
 ```bash
-go build -o api
-./api
+go build
+./gin-gonic-api
 ```
 
 ### Update dependency wiring (if needed)
