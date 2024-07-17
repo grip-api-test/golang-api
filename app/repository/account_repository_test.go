@@ -16,3 +16,15 @@ func Test_SaveAccount_AddsItToTheRepository(t *testing.T) {
 	var accounts = sut.FindAll()
 	assert.NotEmpty(t, accounts)
 }
+
+
+func Test_GetAccountByID(t *testing.T) {
+	id := 1;
+	sut := AccountRepositoryInit()
+	sut.Save(&dao.Account{ID: 1, Name: "Denis"})
+	
+	newAccount := sut.Get(id)
+
+	assert.Equal(t, 1, newAccount.ID)
+	assert.Equal(t, "Denis", newAccount.Name)
+}

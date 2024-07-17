@@ -7,6 +7,7 @@ import (
 type AccountRepository interface {
 	FindAll() []dao.Account
 	Save(account *dao.Account) dao.Account
+	Get(id int) dao.Account
 }
 
 type FakeAccountRepositoryImpl struct {
@@ -26,4 +27,13 @@ func AccountRepositoryInit() *FakeAccountRepositoryImpl {
 	return &FakeAccountRepositoryImpl{
 		accounts: []dao.Account{},
 	}
+}
+
+func (u *FakeAccountRepositoryImpl) Get(id int) dao.Account {
+	for _, obj := range u.accounts {
+        if obj.ID == id {
+            return obj
+        }
+    }
+	return dao.Account{}
 }
