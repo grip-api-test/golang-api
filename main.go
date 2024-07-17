@@ -1,38 +1,20 @@
 package main
 
 import (
-	"example.com/go-crud/controllers"
-	"example.com/go-crud/initializers"
-	"github.com/gin-gonic/gin"
+	"gin-gonic-api/app/router"
+	"gin-gonic-api/config"
+
+	"github.com/joho/godotenv"
 )
 
 func init() {
-	// LoadEnvVariables loads environment variables from .env file
-	initializers.LoadEnvVariables()
-
-	// establishes a connection to the database.
-	initializers.ConnectToDB()
+	godotenv.Load()
+	config.InitLog()
 }
 
 func main() {
-	// creates a Gin router
-	r := gin.Default()
+	init := config.Init()
+	app := router.Init(init)
 
-	// Create a new post
-	r.POST("/posts", controllers.PostsCreate)
-
-	// Retrieve all posts
-	r.GET("/posts", controllers.PostIndex)
-
-	// GET Retrieve a specific post by ID
-	r.GET("/post/:id", controllers.PostShow)
-
-	// PUT Update a specific post by ID
-	r.PUT("/posts/:id", controllers.PostUpdate)
-
-	// DELETE Delete a specific post by ID
-	r.DELETE("/posts/:id", controllers.PostDelete)
-
-	// starts the HTTP server
-	r.Run()
+	app.Run(":8080")
 }

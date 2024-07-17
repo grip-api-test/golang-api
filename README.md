@@ -1,8 +1,38 @@
 # Useful Links:
 
-## Install Go
+## Setup environment
 
-https://go.dev/dl/
+- Install golang 1.22.x: <https://go.dev/dl/>
+- Install wire `go install github.com/google/wire/cmd/wire@latest`
+
+## Building
+
+```bash
+go build -o api
+./api
+```
+
+### Update dependency wiring (if needed)
+
+```bash
+go generate ./...
+```
+
+## Testing
+
+```bash
+go test ./... -coverprofile=coverage.out
+```
+
+## Accessing the app
+
+Either via browser on <http://localhost:8080> or via `curl`:
+
+```bash
+curl -X GET http://localhost:8080/api/accounts
+curl -X POST --header "Content-Type: application/json" --data '{"name":"Test Account","email":"test@foo.com"}' http://localhost:8080/api/accounts
+curl -X GET http://localhost:8080/api/accounts/1
+```
 
 ## Quickstart Gin Web Framework:
 
@@ -10,23 +40,23 @@ https://gin-gonic.com/docs/quickstart/
 
 ## Very simple Compile Daemon for Go:
 
-## Watches your .go files in a directory and invokes go build if a file changed. Nothing more.
+Watches your .go files in a directory and invokes go build if a file changed. Nothing more.
 
 https://github.com/githubnemo/CompileDaemon
 
 ## GoDotEnv
 
-## loads env vars from a .env file
+Loads env vars from a .env file
 
 https://github.com/joho/godotenv
 
-## Extensions:
+## VSCode extensions:
 
 Go
 
-# How to start your first project
+## How to start your first project
 
-## 1. Create Workspace
+### 1. Create Workspace
 
 Create a directory for your Go module source code.
 
@@ -44,11 +74,11 @@ $ go mod init
 
 The go mod init command creates a go.mod file to track your code's dependencies. So far, the file includes only the name of your module and the Go version your code supports. But as you add dependencies, the go.mod file will list the versions your code depends on. This keeps builds reproducible and gives you direct control over which module versions to use.
 
-## Compile Deamon for Go:
+### Compile Deamon for Go:
 
 Watches your .go files in a directory and invokes go build if a file changed. Nothing more.
 
-### Installation
+#### Installation
 
 ```console
 $ go get github.com/githubnemo/CompileDaemon
