@@ -10,6 +10,7 @@ import (
 type AccountService interface {
 	GetAll() []dao.Account
 	CreateAccount(newAccount dao.Account) dao.Account
+	Get(id int) dao.Account
 }
 
 type LocalAccountServiceImpl struct {
@@ -35,3 +36,9 @@ func AccountServiceInit(accountRepository repository.AccountRepository) *LocalAc
 		accountRepository: accountRepository,
 	}
 }
+
+func (u LocalAccountServiceImpl) Get(id int) dao.Account {
+	return u.accountRepository.Get(id)
+}
+
+

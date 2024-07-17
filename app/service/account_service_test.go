@@ -18,3 +18,16 @@ func Test_GetAll_FindsAllAccountsInRepository(t *testing.T) {
 	assert.Contains(t, accounts, dao.Account{Name: "Test Account"})
 	mockAccountRepository.AssertCalled(t, "FindAll")
 }
+
+
+func Test_GetAccountById(t *testing.T) {
+	mockAccountRepository := new(MockAccountRepository)
+	sut := AccountServiceInit(mockAccountRepository)
+	mockAccountRepository.On("Get", 1).Return(dao.Account{Name: "Test Account"})
+	
+	var account = sut.Get(1)
+
+	assert.NotNil(t, account)
+	assert.Equal(t, "Test Account", account.Name)
+	mockAccountRepository.AssertCalled(t, "Get", 1)
+}
