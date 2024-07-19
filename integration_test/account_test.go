@@ -47,9 +47,8 @@ func Test_CreateAndGetAccounts_ReturnsCreatedAcccount(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, "SUCCESS", response.ResponseKey)
 	assert.Equal(t, http.StatusOK, recorder.Code)
-	assert.Contains(t, response.Data, dao.Account{Name: "Test Account"})
+	assert.Contains(t, response.Data, dao.Account{Name: "Test Account", ID: 1})
 }
-
 
 func Test_GetAccountById_ReturnsCreatedAcccount(t *testing.T) {
 	var response dto.ApiResponse[dao.Account]
