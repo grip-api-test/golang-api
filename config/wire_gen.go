@@ -19,7 +19,8 @@ func Init() *Initialization {
 	fakeAccountRepositoryImpl := repository.AccountRepositoryInit()
 	localAccountServiceImpl := service.AccountServiceInit(fakeAccountRepositoryImpl)
 	accountControllerImpl := controller.AccountControllerInit(localAccountServiceImpl)
-	initialization := NewInitialization(fakeAccountRepositoryImpl, localAccountServiceImpl, accountControllerImpl)
+	healthControllerImpl := controller.HealthControllerInit()
+	initialization := NewInitialization(fakeAccountRepositoryImpl, localAccountServiceImpl, accountControllerImpl, healthControllerImpl)
 	return initialization
 }
 
@@ -30,3 +31,5 @@ var accountServiceSet = wire.NewSet(service.AccountServiceInit, wire.Bind(new(se
 var accountRepoSet = wire.NewSet(repository.AccountRepositoryInit, wire.Bind(new(repository.AccountRepository), new(*repository.FakeAccountRepositoryImpl)))
 
 var accountCtrlSet = wire.NewSet(controller.AccountControllerInit, wire.Bind(new(controller.AccountController), new(*controller.AccountControllerImpl)))
+
+var healthCrtlSet = wire.NewSet(controller.HealthControllerInit, wire.Bind(new(controller.HealthController), new(*controller.HealthControllerImpl)))

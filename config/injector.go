@@ -24,6 +24,10 @@ var accountCtrlSet = wire.NewSet(controller.AccountControllerInit,
 	wire.Bind(new(controller.AccountController), new(*controller.AccountControllerImpl)),
 )
 
+var healthCrtlSet = wire.NewSet(controller.HealthControllerInit,
+	wire.Bind(new(controller.HealthController), new(*controller.HealthControllerImpl)),
+)
+
 func Init() *Initialization {
 	wire.Build(NewInitialization, accountCtrlSet, accountServiceSet, accountRepoSet)
 	return nil
